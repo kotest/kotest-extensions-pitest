@@ -1,4 +1,4 @@
-# kotest-assertions-pitest
+# kotest-extensions-pitest
 
 Kotest extension for migration testing using [Pitest](https://pitest.org/).
 
