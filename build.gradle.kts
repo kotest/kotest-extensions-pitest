@@ -36,6 +36,7 @@ allprojects {
       compileOnly(Libs.Pitest.pitest)
       implementation(Libs.Coroutines.coreJvm)
       testImplementation(Libs.Kotest.junit5)
+      testImplementation(Libs.Pitest.pitest)
    }
 
    tasks.named<Test>("test") {

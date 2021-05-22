@@ -14,6 +14,10 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
+### 1.0.1
+
+* Pitest dependency is now compileOnly. It must be added by the user.
+
 ### 1.0.0
 
 * Migrated from the main Kotest repo into a standalone top level repo.
