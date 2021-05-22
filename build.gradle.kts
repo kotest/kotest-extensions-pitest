@@ -33,7 +33,7 @@ allprojects {
    dependencies {
       implementation(Libs.Kotest.api)
       implementation(Libs.Kotest.engine)
-      implementation(Libs.Pitest.pitest)
+      compileOnly(Libs.Pitest.pitest)
       implementation(Libs.Coroutines.coreJvm)
       testImplementation(Libs.Kotest.junit5)
    }
