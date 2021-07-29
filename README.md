@@ -1,6 +1,6 @@
 # kotest-extensions-pitest
 
-Kotest extension for migration testing using [Pitest](https://pitest.org/).
+Kotest extension for mutation testing using [Pitest](https://pitest.org/).
 
 See [docs](https://kotest.io/docs/extensions/pitest.html).
 
