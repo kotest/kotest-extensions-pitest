@@ -1,11 +1,11 @@
 package io.kotest.plugin.pitest
 
+import io.kotest.core.descriptors.toDescriptor
 import io.kotest.core.spec.Spec
-import io.kotest.core.spec.toDescription
 import io.kotest.core.test.TestCase
 import io.kotest.core.test.TestResult
-import io.kotest.engine.KotestEngineLauncher
-import io.kotest.engine.listener.TestEngineListener
+import io.kotest.engine.TestEngineLauncher
+import io.kotest.engine.listener.AbstractTestEngineListener
 import kotlinx.coroutines.runBlocking
 import org.pitest.testapi.Description
 import org.pitest.testapi.ResultCollector
@@ -14,34 +14,34 @@ import kotlin.reflect.KClass
 
 class KotestUnit(val klass: KClass<out Spec>) : TestUnit {
 
-   override fun getDescription(): Description = Description(klass.toDescription().testDisplayPath().value, klass.java)
+   override fun getDescription(): Description = Description(klass.toDescriptor().path().value, klass.java)
 
-   override fun execute(rc: ResultCollector) = runBlocking {
+   override fun execute(rc: ResultCollector) = runBlocking<Unit> {
 
-      val listener = object : TestEngineListener {
+      val listener = object : AbstractTestEngineListener() {
 
-         private val started = mutableSetOf<io.kotest.core.test.Description>()
-         private val completed = mutableSetOf<io.kotest.core.test.Description>()
+         private val started = mutableSetOf<io.kotest.core.descriptors.Descriptor.TestDescriptor>()
+         private val completed = mutableSetOf<io.kotest.core.descriptors.Descriptor.TestDescriptor>()
 
-         override fun testStarted(testCase: TestCase) {
-            if (started.add(testCase.description))
-               rc.notifyStart(Description(testCase.description.testDisplayPath().value, klass.java))
+         override suspend fun testStarted(testCase: TestCase) {
+            if (started.add(testCase.descriptor))
+               rc.notifyStart(Description(testCase.descriptor.path().value, klass.java))
          }
 
-         override fun testFinished(testCase: TestCase, result: TestResult) {
-            val desc = Description(testCase.description.testDisplayPath().value, klass.java)
-            if (completed.add(testCase.description)) {
-               when (result.error) {
+         override suspend fun testFinished(testCase: TestCase, result: TestResult) {
+            val desc = Description(testCase.descriptor.path().value, klass.java)
+            if (completed.add(testCase.descriptor)) {
+               when (result.errorOrNull) {
                   null -> rc.notifyEnd(desc)
-                  else -> rc.notifyEnd(desc, result.error)
+                  else -> rc.notifyEnd(desc, result.errorOrNull)
                }
             }
          }
       }
 
-      KotestEngineLauncher()
+      TestEngineLauncher()
          .withListener(listener)
-         .withSpec(klass)
+         .withClasses(klass)
          .launch()
    }
 }
