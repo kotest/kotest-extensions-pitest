@@ -14,6 +14,10 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
+### 1.1.0
+
+* Updated for Kotest 5.x. Now requires Kotlin 1.6
+
 ### 1.0.1
 
 * Pitest dependency is now compileOnly. It must be added by the user.
