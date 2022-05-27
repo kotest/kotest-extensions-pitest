@@ -1,0 +1,13 @@
+[versions]
+kotest = "5.1.0"
+pitest = "1.7.3"
+coroutines = "1.6.0"
+
+[libraries]
+kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+kotest-framework-api = { module = "io.kotest:kotest-framework-api", version.ref = "kotest" }
+kotest-framework-engine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
+
+pitest = { module = "org.pitest:pitest", version.ref = "pitest" }
+
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }

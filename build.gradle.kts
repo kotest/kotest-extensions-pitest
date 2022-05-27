@@ -1,63 +1,47 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
-buildscript {
-   repositories {
-      jcenter()
-      mavenCentral()
-      maven {
-         url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
-      }
-      maven {
-         url = uri("https://plugins.gradle.org/m2/")
-      }
-   }
-}
-
 plugins {
-   java
    `java-library`
-   id("java-library")
-   id("maven-publish")
    signing
-   maven
    `maven-publish`
-   kotlin("jvm").version(Libs.kotlinVersion)
+   kotlin("jvm") version "1.6.10"
 }
 
-allprojects {
-   apply(plugin = "org.jetbrains.kotlin.jvm")
+group = "io.kotest.extensions"
+version = Ci.version
 
-   group = Libs.org
-   version = Ci.version
+dependencies {
+   implementation(libs.kotest.framework.api)
+   implementation(libs.kotest.framework.engine)
+   compileOnly(libs.pitest)
+   implementation(libs.kotlinx.coroutines.core)
+   testImplementation(libs.kotest.runner.junit5)
+   testImplementation(libs.pitest)
+}
 
-   dependencies {
-      implementation(Libs.Kotest.api)
-      implementation(Libs.Kotest.engine)
-      compileOnly(Libs.Pitest.pitest)
-      implementation(Libs.Coroutines.coreJvm)
-      testImplementation(Libs.Kotest.junit5)
-      testImplementation(Libs.Pitest.pitest)
+tasks.named<Test>("test") {
+   useJUnitPlatform()
+   testLogging {
+      showExceptions = true
+      showStandardStreams = true
+      exceptionFormat = TestExceptionFormat.FULL
    }
+}
 
-   tasks.named<Test>("test") {
-      useJUnitPlatform()
-      testLogging {
-         showExceptions = true
-         showStandardStreams = true
-         exceptionFormat = TestExceptionFormat.FULL
-      }
-   }
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+   kotlinOptions.jvmTarget = "1.8"
+}
 
-   tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-      kotlinOptions.jvmTarget = "1.8"
-   }
+java {
+   targetCompatibility = JavaVersion.VERSION_1_8
+   sourceCompatibility = JavaVersion.VERSION_1_8
+}
 
-   repositories {
-      mavenLocal()
-      mavenCentral()
-      maven {
-         url = uri("https://oss.sonatype.org/content/repositories/snapshots")
-      }
+repositories {
+   mavenLocal()
+   mavenCentral()
+   maven {
+      url = uri("https://oss.sonatype.org/content/repositories/snapshots")
    }
 }
 
