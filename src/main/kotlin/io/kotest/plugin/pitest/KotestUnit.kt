@@ -17,15 +17,15 @@ class KotestUnit(val klass: KClass<out Spec>) : TestUnit {
    override fun getDescription(): Description = Description(klass.toDescriptor().path().value, klass.java)
 
    override fun execute(rc: ResultCollector) = runBlocking<Unit> {
-
       val listener = object : AbstractTestEngineListener() {
 
          private val started = mutableSetOf<io.kotest.core.descriptors.Descriptor.TestDescriptor>()
          private val completed = mutableSetOf<io.kotest.core.descriptors.Descriptor.TestDescriptor>()
 
          override suspend fun testStarted(testCase: TestCase) {
-            if (started.add(testCase.descriptor))
+            if (started.add(testCase.descriptor)) {
                rc.notifyStart(Description(testCase.descriptor.path().value, klass.java))
+            }
          }
 
          override suspend fun testFinished(testCase: TestCase, result: TestResult) {

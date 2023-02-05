@@ -6,13 +6,15 @@ import org.pitest.testapi.TestGroupConfig
 import org.pitest.testapi.TestPluginFactory
 
 class KotestPluginFactory : TestPluginFactory {
-  override fun createTestFrameworkConfiguration(config: TestGroupConfig?,
-                                                source: ClassByteArraySource?,
-                                                excludedRunners: MutableCollection<String>?,
-                                                includedTestMethods: MutableCollection<String>?): Configuration {
-    return KotestConfiguration()
-  }
+   override fun createTestFrameworkConfiguration(
+      config: TestGroupConfig?,
+      source: ClassByteArraySource?,
+      excludedRunners: MutableCollection<String>?,
+      includedTestMethods: MutableCollection<String>?
+   ): Configuration {
+      return KotestConfiguration()
+   }
 
-  override fun description(): String = "Kotest Support"
-  override fun name(): String = "Kotest"
+   override fun description(): String = "Kotest Support"
+   override fun name(): String = "Kotest"
 }

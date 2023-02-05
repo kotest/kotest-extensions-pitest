@@ -14,6 +14,11 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
+### 1.2.0
+
+* Minimum Pitest version is now 1.9.0.
+* Confirmed to work with Pitest versions up to and including 1.11.0
+
 ### 1.1.0
 
 * Updated for Kotest 5.x. Now requires Kotlin 1.6

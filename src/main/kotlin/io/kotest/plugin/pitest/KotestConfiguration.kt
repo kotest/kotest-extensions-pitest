@@ -8,10 +8,9 @@ import java.util.Optional
 
 class KotestConfiguration : Configuration {
 
-  override fun verifyEnvironment(): Optional<PitHelpError> = Optional.empty()
+   override fun verifyEnvironment(): Optional<PitHelpError> = Optional.empty()
 
-  override fun testUnitFinder(): TestUnitFinder = KotestUnitFinder()
+   override fun testUnitFinder(): TestUnitFinder = KotestUnitFinder()
 
-  override fun testSuiteFinder(): TestSuiteFinder = KotestSuiteFinder()
-
+   override fun testSuiteFinder(): TestSuiteFinder = KotestSuiteFinder()
 }
