@@ -1,5 +1,5 @@
 [versions]
-kotest = "5.7.2"
+kotest = "5.9.1"
 pitest = "1.15.8"
 coroutines = "1.6.4"
 
