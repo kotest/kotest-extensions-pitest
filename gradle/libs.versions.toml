@@ -1,6 +1,6 @@
 [versions]
 kotest = "5.7.2"
-pitest = "1.15.8"
+pitest = "1.20.1"
 coroutines = "1.6.4"
 
 [libraries]
