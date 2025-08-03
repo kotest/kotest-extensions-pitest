@@ -1,5 +1,7 @@
 # kotest-extensions-pitest
 
+## Migrated to a top level extensions in the Kotest repo
+
 Kotest extension for mutation testing using [Pitest](https://pitest.org/).
 
 See [docs](https://kotest.io/docs/extensions/pitest.html).
